@@ -1,0 +1,123 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+   int i, j, r, dimension, n;
+   printf("Inserte el tamanio de la matriz (si inserta 5, sera de 5x5): ");
+   scanf("%d",&n);
+   int tamano = n;
+   int matriz [n][n];
+
+  for(i=0;i<tamano;i++){
+    for(j=0;j<tamano;j++){
+        r=rand() % 10;
+        matriz[i][j]= r;
+    }
+   }
+    for(i=0;i<tamano;i++){
+    for(j=0;j<tamano;j++){
+        printf("%d ",matriz[i][j]);
+    }
+    printf("\n");
+
+}
+    int intentos=0,cantAciertos=0;
+    for(intentos=0;intentos<=9;intentos++){
+    printf("\nIntento %d\n",intentos+1);
+
+
+    int num, respuesta,posicion;
+    printf("Inserte un numero entre 0 y %d: ",9*n);
+    scanf("%d",&num);
+
+
+    printf("Ingrese 'F' para Fila, 'C' para Columna o 'D' para Diagonal, si alguna suma %d. \nSi ninguna suma ese numero, ingrese 'N'-Ninguna.\nIngrese su respuesta:",num);
+    scanf("%s",&respuesta);
+    int sumaMatriz=0,respDiagonal;
+    switch(respuesta){
+            case 'F':
+            case 'f':
+                printf("Ingrese la Fila en la que se encuentra la respuesta correcta(entre 1 y %d):",n);
+                scanf("%d",&posicion);
+
+                for(j=0;j<=n-1;j++){
+                    sumaMatriz = sumaMatriz + matriz[posicion-1][j];
+                    }
+                    printf("%d",sumaMatriz);
+                    if(sumaMatriz==num){
+                        printf("Correcto");
+                        cantAciertos++;
+                        }
+                    else printf("Incorrecto");
+                    break;
+
+            case 'C':
+            case 'c':
+                printf("Ingrese la Columna en la que se encuentra la respuesta correcta(entre 1 y %d):",n);
+                scanf("%d",&posicion);
+                for(i=0;i<=n-1;i++){
+                    sumaMatriz= sumaMatriz + matriz[i][posicion-1];
+                }
+                if(sumaMatriz==num){
+                    printf("Correcto");
+                    cantAciertos++;
+                } else printf("Incorrecto");
+                break;
+
+            case 'D':
+            case 'd':
+                printf("Ingrese en que diagonal se encuentra la respuesta. \nSi es la diagonal \\ ingrese 1, si es / ingrese 2: ");
+                scanf("%d",&respDiagonal);
+                if(respDiagonal==1){
+                    for(i=0;i<=n-1;i++){
+                        j=i;
+                        sumaMatriz = sumaMatriz + matriz[i][j];
+                        }
+                        if(sumaMatriz==num){
+                        printf("Correcto");
+                        cantAciertos++;
+                }       else printf("Incorrecto");
+                }
+                else if(respDiagonal==2){
+                        j=-1;
+                    for(i=n-1;i>=0;i--){
+                        j++;
+                        sumaMatriz= sumaMatriz + matriz[i][j];
+                        }
+                        if(sumaMatriz==num){
+                        printf("Correcto");
+                        cantAciertos++;
+                        }
+                        else printf("Incorrecto");
+                     }
+                        else printf("Numero invalido");
+                        break;
+                        //FALTA TERMINAR ESTO
+            case 'N':
+            case 'n':
+                    for(i=0;i<=n-1;i++){
+                        j=i;
+                        sumaMatriz = sumaMatriz + matriz[i][j];
+                        }
+                        if(sumaMatriz==num){
+                        printf("Incorrecto");
+                        } else printf("Correcto");
+                            cantAciertos++;
+
+
+}//switch
+
+}
+        if(cantAciertos>=0 && cantAciertos<=2){
+            printf("\nNo es tu mejor juego");
+            } else if(cantAciertos>=3 && cantAciertos<=5){
+                printf("\nPuedes mejorar");
+              } else if(cantAciertos>=6 && cantAciertos<=8){
+                    printf("\nMuy bien!");
+                    }else if (cantAciertos>=9 && cantAciertos<=10){
+                    printf("\nUn genio!");
+                        }else printf("No hay nota");
+
+return 0;
+}
