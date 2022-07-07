@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+ int cantIntentos,j,h,k,largoPalabra=0, largoIntento=0;
+ char respuesta[100],i;
+
+    printf("Ingrese la palabra a adivinar: ");
+    scanf("%s",&respuesta);
+    printf("Inserte la cantidad de intentos: ");
+    scanf("%d",&cantIntentos);
+    //Saber largo palabra para hacer el -------
+    for(largoPalabra=0; respuesta[largoPalabra]!='\0'; ++largoPalabra);
+    //Arranca el ciclo de adivinar
+    char intento[100];
+    for(j=cantIntentos;j>=0;j--){
+        printf("Inserte su primer intento: ");
+        scanf("%s",&intento);
+        //saber largo intento
+        for(largoIntento=0; intento[largoIntento]!='\0'; ++largoIntento);
+        //arranca a comparar
+        for(h=0;h>=largoIntento;h++){
+            for(k=0;k>=largoPalabra;k++){
+                if(intento[h]==respuesta[k]){
+                    printf("si");
+                }
+            }
+        }
+    }
+}
