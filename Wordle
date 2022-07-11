@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
+/*int main(){
  int cantIntentos,j,h,k,largoPalabra=0, largoIntento=0;
  char respuesta[100],i;
 
@@ -27,4 +27,83 @@ int main(){
             }
         }
     }
+}*/
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+const int MAX=80;
+typedef char string [MAX];
+typedef enum {TRUE, FALSE} boolean;
+
+int main(){
+
+    string cadena;
+    char palabra;
+    int i,j,posIgual,intentos,cantIntentos,cantLetras=0;
+
+    printf("Palabra: ");
+    scanf("%c",&palabra);
+
+    //guardar la palabra en el array
+    while (palabra!='\n' && i<(MAX-1)){
+        cadena[i]=palabra;
+        cantLetras++;    //a medida que se va cargando el array, esta variable se utiliza como contador para saber cuantos caracteres tiene la palabra ingresada, asi definimos la longitud del array de la palabra a adivinar en base a esta variable
+        i++;
+        scanf ("%c", &palabra);
+    }
+    cadena[i]='\0';
+    /*imprimir la palabra
+    i=0;
+    printf("La palabra: ");
+    while (cadena[i]!='\0'){
+        printf ("%c",cadena[i]);
+        i++;
+    }
+    printf("\nCantidad de letras: %d",cantLetras);*/
+
+
+    printf("Cantidad de intentos: ");
+    scanf("%d",&intentos);
+   // printf("intentos: %d",intentos);
+
+
+
+    //crear el array con "- - - " segun la canitdad de caracteres de la primera palabra
+    string cadena2;
+    for (int i=0; i<cantLetras; i++){
+        cadena2[i]='-';
+    }
+    //imprimir el array con las rayitas
+    printf("\nPalabra a adivinar: ");
+    i=0;
+    for (int i=0; i<cantLetras; i++){
+        printf(" %c",cadena2[i]);
+    }
+
+    
+    cantIntentos=0;
+    do{
+        //Palabra2 ingresada para comparar
+        char palabra2 [cantLetras];
+        printf("\nIntento %d: ",cantIntentos+1);
+        scanf("%s",&palabra2);
+        //printf("%s",respuesta);
+        
+        //recorrer la palabra1 e ir comparando si alguna letra y posicion coincide con la palabra 2
+        i=0;
+        for (i=0; i<cantLetras; i++){
+            for (j=0; j<cantLetras; j++){
+                if (palabra2[i]==cadena[j]){
+                    posIgual= j;                  //variable que almacena la posicion en donde hay letras iguales en ambas cadenas
+                    cadena2[posIgual]=cadena[i];
+                }
+            }
+        }
+        printf("\nPalabra a adivinar: ");
+        for (int i=0; i<cantLetras; i++){
+            printf("%  c",cadena2[i]);
+        }
+        cantIntentos++;
+    }while(cantIntentos<=intentos-1);
+    return 0;
 }
