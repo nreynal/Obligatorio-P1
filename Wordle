@@ -1,30 +1,107 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(){
- int cantIntentos,j,h,k,largoPalabra=0, largoIntento=0;
- char respuesta[100],i;
+const int MAX=80;
+typedef char string [MAX];
+typedef enum {TRUE, FALSE} boolean;
 
-    printf("Ingrese la palabra a adivinar: ");
-    scanf("%s",&respuesta);
-    printf("Inserte la cantidad de intentos: ");
-    scanf("%d",&cantIntentos);
-    //Saber largo palabra para hacer el -------
-    for(largoPalabra=0; respuesta[largoPalabra]!='\0'; ++largoPalabra);
-    //Arranca el ciclo de adivinar
-    char intento[100];
-    for(j=cantIntentos;j>=0;j--){
-        printf("Inserte su primer intento: ");
-        scanf("%s",&intento);
-        //saber largo intento
-        for(largoIntento=0; intento[largoIntento]!='\0'; ++largoIntento);
-        //arranca a comparar
-        for(h=0;h>=largoIntento;h++){
-            for(k=0;k>=largoPalabra;k++){
-                if(intento[h]==respuesta[k]){
-                    printf("si");
+int main(){
+
+    string cadena,cadena2,palabra2;
+    char palabra;
+    int i,j,posIgual,intentos,cantIntentos,cantGuiones,cantLetras=0;
+
+    printf("Palabra: ");
+    scanf("%c",&palabra);
+
+    //guardar la palabra en el array
+    while (palabra!='\n' && i<(MAX-1)){
+        cadena[i]=palabra;
+        cantLetras++;   //a medida que se va cargando el array, esta variable se utiliza como contador para saber cuantos caracteres tiene la palabra ingresada, asi definimos la longitud del array de la palabra a adivinar en base a esta variable
+        i++;
+        scanf ("%c", &palabra);
+    }
+    cadena[i]='\0';
+    /*imprimir la palabra
+    i=0;
+    printf("La palabra: ");
+    while (cadena[i]!='\0'){
+        printf ("%c",cadena[i]);
+        i++;
+    }
+    printf("\nCantidad de letras: %d",cantLetras);*/
+
+
+    printf("\nCantidad de intentos: ");
+    scanf("%d",&intentos);
+   // printf("intentos: %d",intentos);
+
+
+
+    //crear el array con "- - - " segun la canitdad de caracteres de la primera palabra
+
+    for (int i=0; i<cantLetras; i++){
+        cadena2[i]='-';
+    }
+    //imprimir el array con las rayitas
+    printf("\nPalabra a adivinar: ");
+    i=0;
+    for (int i=0; i<cantLetras; i++){
+        printf(" %c",cadena2[i]);
+    }
+
+    boolean ganaste=FALSE;
+    cantIntentos=0;
+    do{
+
+        fflush(stdin);
+        printf("\nPalabra a adivinar: ");
+        scanf("%c",&palabra);
+        i=0;
+        while (palabra!='\n' && i<(MAX-1)){
+        palabra2[i]=palabra;
+        i++;
+        scanf ("%c", &palabra);
+        }
+        palabra2[i]='\0';
+
+        //recorrer la palabra1 e ir comparando si alguna letra y posicion coincide con la palabra 2
+        i=0;
+        while (cadena[i]!='\0'){
+                if (palabra2[i]==cadena[i]){
+                    cadena2[i]=cadena[i];
+                }
+                i++;
+        }
+        printf("\nPalabra a adivinar: ");
+        i=0;
+        while(cadena2[i]!='\0'){
+            printf("%c ",cadena2[i]);
+            i++;
+        }
+        i=0;
+
+        while (cadena2[i]!='\0'){
+            if (cadena2[i]== '-'){
+                j=0;
+                while(cadena[j]!='\0'){
+
+                    if (cadena2[j]=='-'){
+                        if (palabra2[i]==cadena[j]){
+                            printf("\nLa letra %c existe, pero esta mal ubicada\n", palabra2[i]);
+
+                        }
+                    }
+                    j++;
                 }
             }
+            i++;
         }
-    }
+        i=0;
+       
+        cantIntentos++;
+    }while(cantIntentos<=intentos-1 || ganaste==FALSE);
+   
+
+    return 0;
 }
